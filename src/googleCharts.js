@@ -25,7 +25,7 @@ class GoogleChartsManager {
 
     [loadScript]() {
         if (!this.scriptPromise) {
-            this.scriptPromise = new Promise(resolve => {
+            this.scriptPromise = new Promise(function(resolve) {
                 const body = document.getElementsByTagName('body')[0]
                 const script = document.createElement('script')
                 script.type = 'text/javascript'
@@ -34,7 +34,7 @@ class GoogleChartsManager {
                     GoogleCharts.api.charts.load('current', {
                         packages: ['corechart', 'table'],
                     })
-                    GoogleCharts.api.charts.setOnLoadCallback(() => {
+                    GoogleCharts.api.charts.setOnLoadCallback(function() {
                         resolve()
                     })
                 }
@@ -46,7 +46,7 @@ class GoogleChartsManager {
     }
 
     load(callback, type) {
-        return this[loadScript]().then(() => {
+        return this[loadScript]().then(function() {
             if (type) {
                 let config = {}
                 if (type instanceof Object) {
