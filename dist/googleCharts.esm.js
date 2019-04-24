@@ -1,4 +1,4 @@
-/* googleCharts.js Version: 1.5.0 Built On: 2018-12-30 */
+/* googleCharts.js Version: 2.0.0 Built On: 2019-04-24 */
 const loadScript = Symbol('loadScript');
 const instance = Symbol('instance');
 let _instance;
@@ -26,7 +26,7 @@ class GoogleChartsManager {
 
     [loadScript]() {
         if (!this.scriptPromise) {
-            this.scriptPromise = new Promise(resolve => {
+            this.scriptPromise = new Promise(function(resolve) {
                 const body = document.getElementsByTagName('body')[0];
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
@@ -35,7 +35,7 @@ class GoogleChartsManager {
                     GoogleCharts.api.charts.load('current', {
                         packages: ['corechart', 'table'],
                     });
-                    GoogleCharts.api.charts.setOnLoadCallback(() => {
+                    GoogleCharts.api.charts.setOnLoadCallback(function() {
                         resolve();
                     });
                 };
@@ -47,7 +47,7 @@ class GoogleChartsManager {
     }
 
     load(callback, type) {
-        return this[loadScript]().then(() => {
+        return this[loadScript]().then(function() {
             if (type) {
                 let config = {};
                 if (type instanceof Object) {
