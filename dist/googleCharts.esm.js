@@ -1,30 +1,28 @@
-/* googleCharts.js Version: 2.0.0 Built On: 2019-04-24 */
-const loadScript = Symbol('loadScript');
-const instance = Symbol('instance');
+/* googleCharts.js Version: 2.0.0 Built On: 2019-05-07 */
 let _instance;
 
 class GoogleChartsManager {
-    get [instance]() {
+    get instance() {
         return _instance
     }
 
-    set [instance](value) {
+    set instance(value) {
         _instance = value;
     }
 
     constructor() {
-        if (this[instance]) {
-            return this[instance]
+        if (this.instance) {
+            return this.instance
         }
 
-        this[instance] = this;
+        this.instance = this;
     }
 
     reset() {
         _instance = null;
     }
 
-    [loadScript]() {
+    loadScript() {
         if (!this.scriptPromise) {
             this.scriptPromise = new Promise(function(resolve) {
                 const body = document.getElementsByTagName('body')[0];
@@ -47,7 +45,7 @@ class GoogleChartsManager {
     }
 
     load(callback, type) {
-        return this[loadScript]().then(function() {
+        return this.loadScript().then(function() {
             if (type) {
                 let config = {};
                 if (type instanceof Object) {
